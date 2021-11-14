@@ -32,14 +32,41 @@
                   <p class="card-text">Published Date: <small class="text-muted" th:text="${book.publishedDate}">2020-01-01</small></p>
                   
                   <form th:if="${loginId}" th:attr="action=@{/addUserBook}" method="post">
+                    <input type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"/>
+                    <input type="hidden"
+                      name="bookId"
+                      th:value="${book.id}" />
                     <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                      <label for="startDate" class="form-label">Start Date</label>
+                      <input type="date" class="form-control" id="startDate" name="startDate" th:value="${userBooks.startedDate}">
                     </div>
                     <div class="mb-3">
-                      <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                      <label for="completedDate" class="form-label">Completed Date</label>
+                      <input type="date" class="form-control" id="completedDate" name="completedDate" th:value="${userBooks.completedDate}">
                     </div>
+                    <div class="mb-3">
+                      <label for="readingStatus" class="form-label">Status</label>
+                      <select id="readingStatus" name="readingStatus" class="form-select" aria-label="Reading Status" th:field="${userBooks.readingStatus}">
+                        <option selected value="0">Status</option>
+                        <option value="reading">Currently Reading</option>
+                        <option value="finished">Finished</option>
+                        <option value="dnf">Did Not Finfsh</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="rating" class="form-label">Rating</label>
+                      <select id="rating" name="rating" class="form-select" aria-label="Rating" th:field="${userBooks.rating}">
+                        <option selected value="0">Select Rating</option>
+                        <option value="1">&starf;</option>
+                        <option value="2">&starf;&starf;</option>
+                        <option value="3">&starf;&starf;&starf;</option>
+                        <option value="4">&starf;&starf;&starf;&starf;</option>
+                        <option value="5">&starf;&starf;&starf;&starf;&starf;</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn-primary btn">Submit</button>
                   </form>
                 </div>
               </div>
