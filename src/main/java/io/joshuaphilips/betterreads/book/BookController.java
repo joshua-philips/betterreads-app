@@ -3,6 +3,8 @@ package io.joshuaphilips.betterreads.book;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,7 @@ public class BookController {
     BookRepository bookRepository;
 
     @GetMapping(value = "/books/{bookId}")
-    public String getBook(@PathVariable String bookId, Model model) {
+    public String getBook(@PathVariable String bookId, Model model, @AuthenticationPrincipal OAuth2User principal) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
 
         if (optionalBook.isPresent()) {
@@ -27,6 +29,11 @@ public class BookController {
             }
             model.addAttribute("coverImage", coverImageUrl);
             model.addAttribute("book", book);
+
+            if (principal != null && principal.getAttribute("login") != null) {
+                model.addAttribute("loginId", principal.getAttribute("login"));
+            }
+
             return "book";
         }
         return "book-not-found";
