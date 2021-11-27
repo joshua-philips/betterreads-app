@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,13 +9,30 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width" />
     <base href="/" />
+    <style>
+	.space-bottom{
+	margin-bottom: 30px;
+	}
+	.heading-top {
+        margin-top: 80px;
+      }
+	</style>
   </head>
   <body>
-    <h1>Better Reads</h1>
-    <p>Welcome to Better Reads App. Login to Continue</p>
-
-    <div>
-      Login With GitHub: <a href="/oauth2/authorization/github">click here</a>
+  <main class="container text-center heading-top">
+    <h1 class="display-5 fw-bold">Better Reads</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4 space-bottom">Welcome to Better Reads App. Track the books you read and fuel your reading.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center space-bottom">
+        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="/oauth2/authorization/github">Login via Github</a>
+      </div>
     </div>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-2">Or search for a book</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <div th:insert="components/book-search :: search-panel"></div>
+      </div>
+    </div>
+    </main>
   </body>
 </html>
